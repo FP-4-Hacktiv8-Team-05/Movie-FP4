@@ -17,6 +17,14 @@
   "plugins": ["react"],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "no-param-reassign": [2, { "props": false }]
+    "no-param-reassign": [2, { "props": false }],
+    "prettier/prettier": 0,
+    "no-unused-vars": "off",
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [".jsx", ".tsx"]
+      }
+    ]
   }
 }
