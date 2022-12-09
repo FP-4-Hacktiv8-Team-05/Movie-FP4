@@ -27,8 +27,6 @@ function App() {
     dispatch(getMovieSearch(search));
   }, [search]);
 
-  console.log(data);
-
   return (
     <div className="App">
       <ThemeProvider theme={darkTheme}>
