@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography, Card, CardMedia } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 
-import { getMovieSearch, MoviesState } from './features/movies/moviesSlice';
-import Navbar from './components/Navbar/Navbar';
-import MovieCard from './components/MovieCard/MovieCard';
-import { AppDispatch, RootState } from './app/store';
+import { AppDispatch, RootState } from 'app/store';
+import { getMovieSearch, MoviesState } from 'features/movies/moviesSlice';
+import Navbar from 'components/Navbar/Navbar';
+import MovieCard from 'components/MovieCard/MovieCard';
 
 const darkTheme = createTheme({
   palette: {
@@ -18,13 +18,13 @@ const darkTheme = createTheme({
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  const {data, loading} = useSelector<RootState>((state) => state.search) as MoviesState;
+  const { data, loading } = useSelector<RootState>(
+    (state) => state.search
+  ) as MoviesState;
 
   useEffect(() => {
     dispatch(getMovieSearch('marvel'));
   }, []);
-
-  console.log(data);
 
   return (
     <div className="App">
@@ -38,7 +38,11 @@ function App() {
             gap={4}>
             {loading ? <Typography>Wait</Typography> : null}
             {data?.Search?.map((item: any) => (
-              <MovieCard imageSrc={item.Poster} title={item.Title} movieId={item.imdbID}  />
+              <MovieCard
+                imageSrc={item.Poster}
+                title={item.Title}
+                movieId={item.imdbID}
+              />
             ))}
           </Box>
         </Container>

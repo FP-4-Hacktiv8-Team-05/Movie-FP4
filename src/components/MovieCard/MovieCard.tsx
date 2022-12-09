@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Typography, Card, CardMedia } from '@mui/material';
 
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
 
 export default function MovieCard({movieId,imageSrc, title, onClick} : Props) {
   return (
-    <Card sx={{ maxWidth: 345, '&:hover': { cursor: 'pointer' } }}>
+    <Card key={movieId} sx={{ maxWidth: 345, '&:hover': { cursor: 'pointer' } }} onClick={onClick}>
       <CardMedia
         component="img"
         height="350"
@@ -25,4 +24,8 @@ export default function MovieCard({movieId,imageSrc, title, onClick} : Props) {
       </Box>
     </Card>
   );
+}
+
+MovieCard.defaultProps = {
+  onClick: () => {}
 }
