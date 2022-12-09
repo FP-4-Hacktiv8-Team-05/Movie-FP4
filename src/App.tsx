@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, CircularProgress, Container, Typography } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
@@ -18,32 +18,42 @@ const darkTheme = createTheme({
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
+  const [search, setSearch] = React.useState<string>('marvel');
   const { data, loading } = useSelector<RootState>(
     (state) => state.search
   ) as MoviesState;
 
   useEffect(() => {
-    dispatch(getMovieSearch('marvel'));
-  }, []);
+    dispatch(getMovieSearch(search));
+  }, [search]);
+
+  console.log(data);
 
   return (
     <div className="App">
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <Navbar />
+        <Navbar onSubmit={(e) => setSearch(e)} />
         <Container maxWidth="lg" sx={{ my: 5, minHeight: '100vh' }}>
           <Box
             display="grid"
             gridTemplateColumns="repeat(auto-fit, minmax(186px, 1fr))"
             gap={4}>
-            {loading ? <Typography>Wait</Typography> : null}
-            {data?.Search?.map((item: any) => (
-              <MovieCard
-                imageSrc={item.Poster}
-                title={item.Title}
-                movieId={item.imdbID}
-              />
-            ))}
+            {loading ? (
+              <Box>
+                <CircularProgress />
+                <Typography component="div">Wait</Typography>
+              </Box>
+            ) : (
+              data?.Search?.map((item: any) => (
+                <MovieCard
+                  key={item.imdbID}
+                  imageSrc={item.Poster}
+                  title={item.Title}
+                  movieId={item.imdbID}
+                />
+              ))
+            )}
           </Box>
         </Container>
       </ThemeProvider>
