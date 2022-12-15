@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_KEY = '64008c8a';
 const config = axios.create({
-  baseURL: 'http://www.omdbapi.com/'
+  baseURL: 'https://www.omdbapi.com/'
 });
 
 export const getMovieById = createAsyncThunk(
